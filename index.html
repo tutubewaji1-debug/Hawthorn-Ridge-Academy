@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hawthorn Ridge Academy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@500;600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine:#1C3B2E;
+    --pine-dark:#122720;
+    --brass:#C89B3C;
+    --parchment:#F3ECDD;
+    --paper:#FBF8F1;
+    --ink:#1A2238;
+    --brick:#A24936;
+    --line:rgba(26,34,56,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--parchment);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    line-height:1.55;
+  }
+  h1,h2,h3,.crest-word{font-family:'Fraunces', serif;}
+  a{color:inherit;}
+
+  /* ---- Top bar ---- */
+  .topbar{
+    background:var(--pine);
+    color:var(--parchment);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:6px 24px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px;
+  }
+  .topbar span{opacity:.85;}
+
+  /* ---- Nav ---- */
+  header.site{
+    background:var(--paper);
+    border-bottom:2px solid var(--pine);
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  nav{
+    max-width:1120px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 24px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:var(--ink);
+  }
+  .crest{
+    width:44px;height:44px;flex-shrink:0;
+  }
+  .brand-text{display:flex;flex-direction:column;line-height:1.1;}
+  .brand-text strong{font-family:'Fraunces',serif;font-size:1.15rem;font-weight:700;}
+  .brand-text small{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brick);}
+  .navlinks{display:flex;gap:28px;list-style:none;margin:0;padding:0;font-weight:600;font-size:0.95rem;}
+  .navlinks a{text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;transition:border-color .2s;}
+  .navlinks a:hover, .navlinks a:focus-visible{border-color:var(--brass);}
+  .navlinks a.help{background:var(--brick);color:#fff;padding:8px 16px;border-radius:2px;}
+  .navlinks a.help:hover{border-color:transparent;background:#8a3a2b;}
+  .menu-toggle{display:none;}
+
+  /* ---- Hero ---- */
+  .hero{
+    max-width:1120px;
+    margin:0 auto;
+    padding:64px 24px 48px;
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:40px;
+    align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.72rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--brick);
+    margin-bottom:14px;
+    display:block;
+  }
+  .hero h1{
+    font-size:clamp(2.1rem, 4vw, 3.1rem);
+    font-weight:700;
+    margin:0 0 18px;
+    color:var(--pine-dark);
+  }
+  .hero p.lede{font-size:1.08rem;max-width:46ch;color:#3a4234;}
+  .hero .cta-row{margin-top:26px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    padding:12px 22px;
+    font-weight:600;
+    text-decoration:none;
+    border-radius:2px;
+    font-size:0.95rem;
+  }
+  .btn-primary{background:var(--pine);color:var(--parchment);}
+  .btn-primary:hover{background:var(--pine-dark);}
+  .btn-ghost{border:2px solid var(--pine);color:var(--pine);}
+  .btn-ghost:hover{background:var(--pine);color:var(--parchment);}
+
+  .seal-wrap{display:flex;justify-content:center;}
+  .seal{
+    width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #26503d, var(--pine-dark));
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:var(--brass);
+    border:6px double var(--brass);
+    text-align:center;
+    box-shadow:0 12px 30px rgba(18,39,32,0.35);
+  }
+  .seal .est{font-family:'IBM Plex Mono',monospace;font-size:0.62rem;letter-spacing:.16em;margin-top:6px;}
+  .seal svg{width:64px;height:64px;margin-bottom:6px;}
+
+  /* ---- Announcement ticker ---- */
+  .ticker-band{
+    background:var(--pine-dark);
+    color:var(--parchment);
+    overflow:hidden;
+    white-space:nowrap;
+    border-top:1px solid var(--brass);
+    border-bottom:1px solid var(--brass);
+  }
+  .ticker-inner{
+    display:inline-block;
+    padding-left:100%;
+    animation:scroll-left 32s linear infinite;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.82rem;
+    padding-top:9px;padding-bottom:9px;
+  }
+  .ticker-inner span{margin-right:56px;}
+  .ticker-inner span::before{content:"◆ ";color:var(--brass);}
+  @keyframes scroll-left{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-100%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .ticker-inner{animation:none;padding-left:0;}
+  }
+
+  /* ---- Sections ---- */
+  section{max-width:1120px;margin:0 auto;padding:64px 24px;}
+  .section-head{max-width:60ch;margin-bottom:38px;}
+  .section-head .eyebrow{margin-bottom:10px;}
+  .section-head h2{font-size:clamp(1.6rem,3vw,2.1rem);margin:0 0 12px;color:var(--pine-dark);}
+
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;}
+  .stat-row{display:flex;gap:32px;margin-top:26px;flex-wrap:wrap;}
+  .stat b{display:block;font-family:'Fraunces',serif;font-size:1.9rem;color:var(--brick);}
+  .stat span{font-size:0.8rem;color:#57604f;}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-top:4px solid var(--brass);
+    padding:26px 22px;
+  }
+  .card h3{margin:0 0 10px;font-size:1.15rem;color:var(--pine-dark);}
+  .card p{font-size:0.92rem;color:#454d3d;margin:0;}
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:step;}
+  .steps li{
+    counter-increment:step;
+    display:grid;
+    grid-template-columns:56px 1fr;
+    gap:18px;
+    padding:20px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .steps li:last-child{border-bottom:none;}
+  .steps li::before{
+    content:counter(step);
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:1.4rem;
+    color:var(--brass);
+    border:2px solid var(--brass);
+    border-radius:50%;
+    width:44px;height:44px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .steps h3{margin:0 0 4px;font-size:1.05rem;}
+  .steps p{margin:0;font-size:0.92rem;color:#454d3d;}
+
+  /* ---- Contact / help desk practice section ---- */
+  .help-section{background:var(--pine-dark);color:var(--parchment);}
+  .help-section .section-head h2{color:var(--parchment);}
+  .help-section .eyebrow{color:var(--brass);}
+  .help-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:44px;align-items:start;}
+  .help-grid p{color:#d8e0d7;}
+  .contact-list{list-style:none;padding:0;margin:24px 0 0;font-size:0.92rem;}
+  .contact-list li{padding:8px 0;border-bottom:1px solid rgba(243,236,221,0.15);}
+  .contact-list b{color:var(--brass);display:inline-block;width:110px;}
+
+  form.ticket-form{
+    background:var(--paper);
+    color:var(--ink);
+    padding:28px;
+    border-radius:2px;
+  }
+  form.ticket-form label{
+    display:block;
+    font-size:0.8rem;
+    font-weight:600;
+    margin:14px 0 6px;
+    letter-spacing:.02em;
+  }
+  form.ticket-form label:first-of-type{margin-top:0;}
+  form.ticket-form input, form.ticket-form select, form.ticket-form textarea{
+    width:100%;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    background:#fff;
+    font-family:inherit;
+    font-size:0.94rem;
+    border-radius:2px;
+  }
+  form.ticket-form textarea{min-height:110px;resize:vertical;}
+  form.ticket-form .btn-primary{margin-top:20px;border:none;cursor:pointer;}
+  .fd-note{
+    margin-top:16px;
+    font-size:0.78rem;
+    padding:10px 12px;
+    background:rgba(200,155,60,0.12);
+    border:1px dashed var(--brass);
+    color:#4a3d17;
+  }
+
+  footer{
+    background:var(--pine);
+    color:var(--parchment);
+    padding:36px 24px;
+    text-align:center;
+    font-size:0.85rem;
+  }
+  footer .crest-word{font-size:1.05rem;display:block;margin-bottom:6px;}
+
+  @media (max-width: 860px){
+    .navlinks{position:fixed;top:74px;left:0;right:0;background:var(--paper);flex-direction:column;padding:18px 24px;gap:16px;display:none;border-bottom:2px solid var(--pine);}
+    .navlinks.open{display:flex;}
+    .menu-toggle{display:block;background:none;border:2px solid var(--pine);padding:8px 10px;border-radius:2px;cursor:pointer;}
+    .hero{grid-template-columns:1fr;}
+    .seal-wrap{order:-1;}
+    .about-grid, .help-grid{grid-template-columns:1fr;}
+    .cards{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span>Hawthorn Ridge Academy · 14 Millbrook Lane, Ridgefield</span>
+  <span>Front Office: Mon–Fri, 7:30 AM–4:00 PM</span>
+</div>
+
+<header class="site">
+  <nav>
+    <a href="#top" class="brand">
+      <svg class="crest" viewBox="0 0 100 100"><path d="M50 6 L90 22 V50 C90 74 72 90 50 96 C28 90 10 74 10 50 V22 Z" fill="#1C3B2E" stroke="#C89B3C" stroke-width="3"/><path d="M50 26 L50 70 M34 40 L66 40" stroke="#C89B3C" stroke-width="4" stroke-linecap="round"/></svg>
+      <span class="brand-text"><strong>Hawthorn Ridge</strong><small>Academy · Est. 1961</small></span>
+    </a>
+    <button class="menu-toggle" onclick="document.querySelector('.navlinks').classList.toggle('open')" aria-label="Toggle menu">☰</button>
+    <ul class="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#academics">Academics</a></li>
+      <li><a href="#admissions">Admissions</a></li>
+      <li><a href="#help" class="help">Help Desk</a></li>
+    </ul>
+  </nav>
+</header>
+
+<div class="ticker-band" aria-label="Announcements">
+  <div class="ticker-inner">
+    <span>Fall term begins September 2 — new-student orientation is August 28</span>
+    <span>Parent portal maintenance this Saturday, 6–8 AM</span>
+    <span>Fall sports sign-ups close Friday</span>
+    <span>Report cards mail out the first week of each term</span>
+    <span>Cafeteria menu for October now posted</span>
+  </div>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Grades 6–12 · Ridgefield, since 1961</span>
+      <h1>A school built on steady attention, not shortcuts.</h1>
+      <p class="lede">Hawthorn Ridge Academy is a college-preparatory day school for grades 6 through 12. Small classes, a full athletics and arts program, and a front office that actually picks up the phone.</p>
+      <div class="cta-row">
+        <a href="#admissions" class="btn btn-primary">Start an application</a>
+        <a href="#help" class="btn btn-ghost">Contact the front office</a>
+      </div>
+    </div>
+    <div class="seal-wrap">
+      <div class="seal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#C89B3C" stroke-width="1.6"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span class="crest-word">Hawthorn Ridge</span>
+        <span class="est">Labore et Constantia</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-head">
+      <span class="eyebrow">About the school</span>
+      <h2>What we're actually like day to day</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p>Hawthorn Ridge runs on the idea that students do their best work when someone actually knows their name. Average class size sits at 16, advisors stay with the same students for years, and the front office handles everything from bus routes to lost sweaters — usually within the same day.</p>
+        <div class="stat-row">
+          <div class="stat"><b>640</b><span>students, grades 6–12</span></div>
+          <div class="stat"><b>16:1</b><span>student–teacher ratio</span></div>
+          <div class="stat"><b>63</b><span>years serving Ridgefield</span></div>
+        </div>
+      </div>
+      <div>
+        <p>We're a single campus — one building, one gym, one library — which means questions rarely need to bounce between departments. If it's about your student, the front office can usually answer it directly, or route it to the right teacher, coach, or counselor the same day.</p>
+        <p>Families tell us the thing they notice most isn't the building. It's that someone calls back.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="academics">
+    <div class="section-head">
+      <span class="eyebrow">Academics</span>
+      <h2>Three tracks, one building</h2>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <h3>College Preparatory</h3>
+        <p>The core track for grades 6–12: four years of English, math through pre-calculus or calculus, lab sciences, and a world language sequence.</p>
+      </div>
+      <div class="card">
+        <h3>Honors & AP</h3>
+        <p>Ten Advanced Placement courses across the sciences, humanities, and math, plus honors sections starting in grade 9.</p>
+      </div>
+      <div class="card">
+        <h3>Arts & Athletics</h3>
+        <p>Band, choir, and studio art run alongside a full interscholastic sports program in soccer, basketball, track, and swimming.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="admissions">
+    <div class="section-head">
+      <span class="eyebrow">Admissions</span>
+      <h2>How to apply</h2>
+    </div>
+    <ol class="steps">
+      <li><div><h3>Submit the inquiry form</h3><p>Tell us your student's grade level and target start term. This opens their applicant file.</p></div></li>
+      <li><div><h3>Send transcripts and records</h3><p>Two years of report cards, plus any IEP or 504 documentation if applicable.</p></div></li>
+      <li><div><h3>Schedule a visit</h3><p>A half-day campus visit and a short, low-pressure conversation with an admissions counselor.</p></div></li>
+      <li><div><h3>Receive a decision</h3><p>Rolling admissions — most families hear back within three weeks of a completed file.</p></div></li>
+    </ol>
+  </section>
+
+  <section id="help" class="help-section">
+    <div class="section-head">
+      <span class="eyebrow">Front office &amp; help desk</span>
+      <h2>Get in touch</h2>
+    </div>
+    <div class="help-grid">
+      <div>
+        <p>For anything from transcript requests to bus schedule changes, the front office is the fastest path to an answer. Submit a request below and a staff member will follow up — this form is also where our support widget lives, for anyone testing live chat or ticket routing.</p>
+        <ul class="contact-list">
+          <li><b>Phone</b> (555) 014-2200</li>
+          <li><b>Email</b> frontoffice@hawthornridge.example</li>
+          <li><b>Hours</b> Mon–Fri, 7:30 AM–4:00 PM</li>
+          <li><b>Address</b> 14 Millbrook Lane, Ridgefield</li>
+        </ul>
+      </div>
+      <form class="ticket-form" onsubmit="return false;">
+        <label for="name">Full name</label>
+        <input id="name" type="text" placeholder="Jordan Bennett">
+
+        <label for="role">I am a</label>
+        <select id="role">
+          <option>Parent / Guardian</option>
+          <option>Current student</option>
+          <option>Prospective family</option>
+          <option>Alumnus</option>
+        </select>
+
+        <label for="topic">Topic</label>
+        <select id="topic">
+          <option>Admissions question</option>
+          <option>Attendance / bus routes</option>
+          <option>Report cards &amp; transcripts</option>
+          <option>Billing &amp; tuition</option>
+          <option>Technical issue with parent portal</option>
+          <option>Something else</option>
+        </select>
+
+        <label for="msg">How can we help?</label>
+        <textarea id="msg" placeholder="Describe your question or issue..."></textarea>
+
+        <button class="btn btn-primary" type="submit">Submit request</button>
+      </form>
+    </div>
+    <div class="fd-note">This form is a placeholder for practice. Once the Freshdesk widget script is added to this page (see setup steps), Freshdesk's own widget will float in the corner here and handle real ticket submission.</div>
+  </section>
+</main>
+
+<footer>
+  <span class="crest-word">Hawthorn Ridge Academy</span>
+  14 Millbrook Lane, Ridgefield · (555) 014-2200 · A practice site for support-desk training
+</footer>
+
+<!--
+  FRESHDESK WIDGET GOES HERE
+  Paste the embed code Freshdesk gives you (Admin > Channels > Web Chat > Widgets > Deploy code)
+  directly above the closing </head> tag at the top of this file. See the setup guide for exact steps.
+-->
+
+</body>
+</html>
