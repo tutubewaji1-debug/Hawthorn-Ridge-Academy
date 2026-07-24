@@ -431,9 +431,17 @@
 </footer>
 
 <!--
-  FRESHDESK WIDGET GOES HERE
-  Paste the embed code Freshdesk gives you (Admin > Channels > Web Chat > Widgets > Deploy code)
-  directly above the closing </head> tag at the top of this file. See the setup guide for exact steps.
+  <script>
+function initFreshdesk() {
+  window.fdWidget.init({
+    token: "01KY7BZ9FNBGPR38YNJB2BG3XT",
+    host: "https://tutubewaji1.freshdesk.com",
+    widgetId: "01KY9DAWH2TPCD4MXXYWB7927C"
+  });
+}
+
+function initialize(i,t){var e;i.getElementById(t)?initFreshdesk():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://tutubewaji1.freshdesk.com/webchat/js/widget.js",e.onload=initFreshdesk,i.head.appendChild(e))}function initiateCall(){initialize(document,"Freshdesk-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
+</script>
 -->
 
 </body>
