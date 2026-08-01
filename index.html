@@ -16,7 +16,21 @@
     --ink:#1A2238;
     --brick:#A24936;
     --line:rgba(26,34,56,0.14);
-  }
+  }.book-btn {
+  display: inline-block;
+  background-color: var(--pine);
+  color: var(--paper);
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 20px 0;
+  transition: background-color 0.2s ease;
+}
+
+.book-btn:hover {
+  background-color: var(--brass);
+}
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
@@ -441,6 +455,6 @@ function initFreshdesk() {
 
 function initialize(i,t){var e;i.getElementById(t)?initFreshdesk():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://tutubewaji1.freshdesk.com/webchat/js/widget.js",e.onload=initFreshdesk,i.head.appendChild(e))}function initiateCall(){initialize(document,"Freshdesk-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
 </script>
-<a href= "https://www.picktime.com/home/hawthornacademy" target="_blank">Book an Appointment</a>
+<a class="book-btn" href= "https://www.picktime.com/home/hawthornacademy" target="_blank">Book an Appointment</a>
 </body>
 </html>
